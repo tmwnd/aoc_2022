@@ -19,7 +19,7 @@ def part_one():
 def part_two():
     print("--- part two ---")
     data.sort()
-    print(np.sum([data[i] for i in [-1, -2, -3]]))
+    print(np.sum(data[-3:]))
 
 part_one()
 part_two()
