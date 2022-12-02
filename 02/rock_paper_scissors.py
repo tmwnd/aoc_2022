@@ -18,8 +18,6 @@ def calc_points_2(shapes):
     elif outcome == 2:
         score = np.argmax(points[i])
     
-    print(score)
-
     return score+1 + outcome*3
 
 
