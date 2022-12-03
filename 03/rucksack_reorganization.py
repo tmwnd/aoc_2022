@@ -1,6 +1,3 @@
-import numpy as np
-
-
 def halve(list):
     return [list[:len(list)//2], list[len(list)//2:]]
 
