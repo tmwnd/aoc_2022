@@ -10,14 +10,19 @@ def make_dir(name, size=0):
         'subdirs' : []
     }
 
+# def get_ptr(root, name):
+#     for subdir in root['subdirs']:
+#         ptr = get_ptr(subdir, name)
+#         if ptr is not None:
+#             return ptr
+#     if root['name'] == name:
+#         return root
+#     return None
+
 def get_ptr(root, name):
     for subdir in root['subdirs']:
-        ptr = get_ptr(subdir, name)
-        if ptr is not None:
-            return ptr
-    if root['name'] == name:
-        return root
-    return None
+        if subdir['name'] == name:
+            return subdir
 
 root = make_dir("/")
 
