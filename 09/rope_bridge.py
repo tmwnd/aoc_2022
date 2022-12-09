@@ -37,12 +37,6 @@ def make_head_with_n_tails_and_move(n, instructions):
     T = np.zeros(n*2).reshape(-1, 2)
     visited = [T[-1].copy()]
 
-    def add_visit(T):
-        for pos in visited:
-            if pos[0] == T[0] and pos[1] == T[1]:
-                return
-        visited.append(T.copy())
-
     def move(H, T, dh, n):
         for _ in range(n):
             H += dh
@@ -61,7 +55,7 @@ def make_head_with_n_tails_and_move(n, instructions):
                     t += dt
 
             if np.any(dt != 0):
-                add_visit(t)
+                visited.append(t.copy())
 
     for instruction in instructions:
         match instruction:
@@ -75,7 +69,7 @@ def make_head_with_n_tails_and_move(n, instructions):
                 move(H, T, [1, 0], int(n))
 
     # print_state(H, T, visited, show_rope=True, show_visited=True)
-    print(len(visited))
+    print(len(np.unique(np.array(visited), axis=0)))
 
 def part_one():
     print("--- part one ---")
