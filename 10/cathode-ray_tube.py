@@ -2,6 +2,8 @@ import numpy as np
 
 with open("data.txt") as f:
     instructions = [line.strip().split(" ") for line in f.readlines()]
+with open("alphabet.txt") as f:
+    alphabet = [line.strip() for line in f.readlines()]
 
 X = [1]
 stack = []
@@ -17,7 +19,6 @@ for instruction in instructions[:-1]:
     X.append(stack.pop(0)(X[-1]))
 for cycle in stack:
     X.append(cycle(X[-1]))
-print(sum)
 
 
 def part_one():
@@ -44,6 +45,20 @@ def part_two():
         if i > 0 and i % 40 == 0:
             print()
         print(pixel, end="")
+    print()
+
+    letters = []
+    for x in range(8):
+        letter = ""
+        for y in range(6):
+            for c in display[x*5+y*40:x*5+y*40+4]:
+                letter += c
+        letters.append(letter)
+    for letter in letters:
+        for i, c in enumerate(alphabet):
+            if letter == c:
+                print(chr(i+65), end="")
+    print()
 
 
 part_one()
