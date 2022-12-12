@@ -62,7 +62,7 @@ def a(start=start):
 
         ptr['is_complete'] = True
         for node in ptr['neighbors']:
-            if node['is_complete'] or len(node['neighbors']) == 0:
+            if node['is_complete']:
                 continue
 
             if node['is_in_queue']:
