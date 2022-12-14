@@ -18,8 +18,7 @@ def f(node):
 
 
 def h(v, pos):
-    return np.sum(target-pos)
-    # return (25-v) * int(np.linalg.norm(target-pos)) // 25
+    return np.sum(np.abs(target-pos)) - v**3
 
 
 def make_node(v, pos):
@@ -36,6 +35,20 @@ def make_node(v, pos):
         'is_target': is_target,
         'neighbors': []
     }
+
+
+def to_string(nodes, check='is_complete'):
+    for i in range(len(nodes)):
+        for node in nodes[i]:
+            if node['is_start']:
+                print("S", end="")
+            elif node['is_target']:
+                print("E", end="")
+            elif node[check]:
+                print("#", end="")
+            else:
+                print(".", end="")
+        print()
 
 
 def a(start=start):
@@ -74,6 +87,7 @@ def a(start=start):
             node['g'] = ptr['g'] + 1
 
             if node['is_target']:
+                to_string(nodes)
                 return node
 
             queue.append(node)
