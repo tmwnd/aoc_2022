@@ -58,21 +58,26 @@ def get_blocked(sensors, y):
         if dy < sensor['d']:
             dx = sensor['d'] - dy
             blocked.append([sensor['x'] - dx, sensor['x'] + dx])
+
+    # print(blocked)
     
     return blocked
 
-def len_blocked(sensors, beacons, y, x0=None, xn=None):
+def len_blocked(sensors, beacons, y):
     blocked = get_blocked(sensors, y)
 
-    if x0 is None: x0 = np.min([b[0] for b in blocked])
-    if xn is None: xn = np.max([b[1] for b in blocked])
+    x0 = np.min([b[0] for b in blocked])
+    xn = np.max([b[1] for b in blocked])
 
     sum = 0
-    for x in range(x0, xn+1):
+    x = x0
+    while x <= xn:
         for b in blocked:
             if b[0] <= x <= b[1]:
-                sum += 1
+                sum += b[1] - x + 1
+                x = b[1]
                 break
+        x += 1
     return sum - np.sum([beacon[1] == y for beacon in beacons])
 
 def get_tuning_frequency(sensors, beacons, y, x0, xn):
@@ -87,7 +92,7 @@ def get_tuning_frequency(sensors, beacons, y, x0, xn):
                 is_blocked = True
                 break
         if not is_blocked:
-            return str(x*4//10) + str(y)
+            return str(x*4//10) + str((x%10)*4000000 + y)
         x += 1
     return ""
         
