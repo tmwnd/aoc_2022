@@ -24,7 +24,7 @@ def get_estimator(dh):
     for i in range(1, len(dh))[::-1]:
         dh[i] -= dh[i-1]
 
-    for l in range(25, len(dh)//2):
+    for l in range(len(dh)//3, len(dh)//2):
         cycle = dh[-l:]
 
         if cycle == dh[-2*l:-l]:
